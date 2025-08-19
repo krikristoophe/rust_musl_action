@@ -23,9 +23,9 @@ if [ "$TOOLCHAIN" != "stable" ]; then
 fi
 
 # sccache optionnel
-if [ "$USE_SCCACHE" != "true" ]; then
-  unset RUSTC_WRAPPER
-fi
+#if [ "$USE_SCCACHE" != "true" ]; then
+#  unset RUSTC_WRAPPER
+#fi
 
 cd "$WORKDIR"
 
@@ -34,13 +34,18 @@ rustc -V
 cargo -V
 echo "Target: $TARGET"
 echo "Args  : $ARGS"
+echo "CARGO_HOME : $CARGO_HOME"
+echo "SCCACHE_DIR : $SCCACHE_DIR"
 
 # Build
 cargo build --target "$TARGET" $ARGS
 
 # Stats sccache si actif (non bloquant)
-(sccache --show-stats || true) >/dev/null 2>&1
+(sccache --show-stats || true)
 
 # Output (pour récupérer le chemin des artefacts)
 TARGET_DIR="target/${TARGET}"
+
 echo "artifact-path=${TARGET_DIR}" >> "$GITHUB_OUTPUT"
+
+ls -la $HOME
