@@ -39,7 +39,7 @@ jobs:
                       type=semver,pattern={{version}}
                       type=semver,pattern={{major}}.{{minor}}
                       type=semver,pattern={{major}}
-                      type=raw,value=v{{major}}
+                      type=semver,pattern=v{{major}}
 
             - name: Build & Push (amd64)
               uses: docker/build-push-action@v6
