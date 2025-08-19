@@ -8,7 +8,9 @@ ARG SCCACHE_VERSION=0.10.0
 ENV DEBIAN_FRONTEND=noninteractive \
     RUSTUP_HOME=/opt/rustup \
     CARGO_HOME=/opt/cargo \
-    PATH=/opt/cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    PATH=/opt/cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    SCCACHE_DIR=/github/home/.cache/sccache
+
 
 # Packages de base + musl
 RUN apt-get update && apt-get install -y --no-install-recommends \
