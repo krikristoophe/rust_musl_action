@@ -35,10 +35,6 @@ outputs:
 runs:
     using: "docker"
     image: docker://ghcr.io/krikristoophe/rust_musl_action:v1
-    env:
-        ACTIONS_CACHE_URL: ${{ env.ACTIONS_CACHE_URL }}
-        ACTIONS_RUNTIME_TOKEN: ${{ env.ACTIONS_RUNTIME_TOKEN }}
-        SCCACHE_GHA_ENABLED: "true"
     args:
         - ${{ inputs.toolchain }}
         - ${{ inputs.target }}
