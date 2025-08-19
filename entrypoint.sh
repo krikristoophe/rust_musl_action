@@ -10,7 +10,7 @@ USE_SCCACHE="${5:-true}"
 export PATH="/opt/cargo/bin:${PATH}"
 export HOME=${HOME:-/github/home}
 export CARGO_HOME="$HOME/.cargo"
-export RUSTUP_HOME="$HOME/.rustup"   # optionnel (rustup peut rester /opt/rustup)
+#export RUSTUP_HOME="$HOME/.rustup"   # optionnel (rustup peut rester /opt/rustup)
 export SCCACHE_DIR="$HOME/.cache/sccache"
 
 mkdir -p "$CARGO_HOME" "$SCCACHE_DIR"
