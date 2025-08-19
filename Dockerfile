@@ -12,6 +12,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     SCCACHE_DIR=/github/home/.cache/sccache
 
 
+
+
 # Packages de base + musl
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates curl git xz-utils pkg-config build-essential \
@@ -23,13 +25,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     | tar -xz --strip-components=1 -C /usr/local/bin --wildcards '*/sccache' \
     || (cargo install sccache && mv /opt/cargo/bin/sccache /usr/local/bin/)
 
+RUN useradd -m -u 1001 -s /bin/bash runner
+
+
 # Valeurs par défaut utiles à l’exécution
 ENV RUSTFLAGS="-C target-feature=+crt-static" \
     RUSTC_WRAPPER="sccache" \
     CC_x86_64_unknown_linux_musl="musl-gcc" \
     CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER="musl-gcc"
 
+
+
 WORKDIR /github/workspace
+
+USER runner
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

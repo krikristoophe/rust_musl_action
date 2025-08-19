@@ -40,6 +40,8 @@ echo "SCCACHE_DIR : $SCCACHE_DIR"
 # Build
 cargo build --target "$TARGET" $ARGS
 
+chown -R 1001:1001 /github/workspace/target || true
+
 # Stats sccache si actif (non bloquant)
 (sccache --show-stats || true)
 
