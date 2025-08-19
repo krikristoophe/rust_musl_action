@@ -1,0 +1,43 @@
+name: "Rust MUSL Build"
+description: "Build Rust for x86_64-unknown-linux-musl"
+author: "Krikristoophe"
+
+branding:
+    color: blue
+    icon: package
+
+inputs:
+    toolchain:
+        description: "Rust toolchain (stable, 1.79.0, etc.)"
+        default: "stable"
+        required: false
+    target:
+        description: "Rust target triple"
+        default: "x86_64-unknown-linux-musl"
+        required: false
+    args:
+        description: "cargo build arguments"
+        default: "--release --locked"
+        required: false
+    workdir:
+        description: "Working directory"
+        default: "."
+        required: false
+    sccache:
+        description: "Enable sccache (true/false)"
+        default: "true"
+        required: false
+
+outputs:
+    artifact-path:
+        description: "Path to target directory for the chosen target"
+
+runs:
+    using: "docker"
+    image: docker://ghcr.io/krikristoophe/rust_musl_action:v1
+    args:
+        - ${{ inputs.toolchain }}
+        - ${{ inputs.target }}
+        - ${{ inputs.args }}
+        - ${{ inputs.workdir }}
+        - ${{ inputs.sccache }}
